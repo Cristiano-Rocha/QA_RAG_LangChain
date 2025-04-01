@@ -1,10 +1,9 @@
 from operator import itemgetter
-from typing import Annotated, List, TypedDict
-
+from typing import  List
+from langchain.chains.openai_functions.qa_with_structure import AnswerWithSources
 from langchain_core.documents import Document
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.runnables import RunnableParallel, RunnableLambda
-
 from llm.gemini import llm
 from prompts.prompts_templates import qa_template
 from core.document_processor import (
@@ -12,18 +11,7 @@ from core.document_processor import (
     remove_extra_spaces_and_newlines
 )
 
-class AnswerWithSources(TypedDict):
-    """An answer to the question, with sources."""
-    question: str
-    answer: str
-    sources: Annotated[
-        List[str],
-        ...,
-        "List of sources used to answer the question",
-    ]
-
 def extract_sources(documents: List[Document]) -> List[str]:
-    """Extrai as fontes dos documentos."""
     return [doc.metadata.get("source", "unknown") for doc in documents]
 
 extract_sources_runnable = RunnableLambda(extract_sources)
