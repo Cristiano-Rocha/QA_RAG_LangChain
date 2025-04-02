@@ -8,13 +8,10 @@ from llm.gemini import llm
 from prompts.prompts_templates import qa_template
 from core.document_processor import (
     to_lower_case,
-    remove_extra_spaces_and_newlines
+    remove_extra_spaces_and_newlines,
+    extract_sources
 )
 
-def extract_sources(documents: List[Document]) -> List[str]:
-    return [doc.metadata.get("source", "unknown") for doc in documents]
-
-extract_sources_runnable = RunnableLambda(extract_sources)
 
 def create_rag_chain(store):
     qa_prompt = ChatPromptTemplate.from_template(qa_template)
@@ -23,6 +20,8 @@ def create_rag_chain(store):
         stepOne=to_lower_case,
         stepThree=remove_extra_spaces_and_newlines
     )
+
+    extract_sources_runnable = RunnableLambda(extract_sources)
 
     return (
         {
