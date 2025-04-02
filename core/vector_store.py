@@ -11,7 +11,7 @@ def initialize_vector_store(loader: PDFPlumberLoader):
     embeddings = initialize_embedding(use_cache=False)
     chunks = do_chunk(embeddings, pages)
     store = FAISS.from_documents(chunks, embeddings)
-    store.save_local('./vectorstore')
-    return FAISS.load_local("./vectorstore", embeddings, allow_dangerous_deserialization=True)
-
-
+    store.save_local("./vectorstore")
+    return FAISS.load_local(
+        "./vectorstore", embeddings, allow_dangerous_deserialization=True
+    )

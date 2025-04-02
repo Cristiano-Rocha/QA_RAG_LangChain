@@ -20,5 +20,7 @@ def initialize_embedding(use_cache=True):
         cached_embedder = embeddings
     end_time = time.time()
     elapsed_time = end_time - start_time
-    log.debug(f"Tempo de execução (cache={'ativado' if use_cache else 'desativado'}): {elapsed_time:.2f} segundos")
+    log.debug(
+        f"Tempo de execução (cache={'ativado' if use_cache else 'desativado'}): {elapsed_time:.2f} segundos"
+    )
     return cached_embedder

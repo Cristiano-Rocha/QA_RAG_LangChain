@@ -1,2 +1,2 @@
-DOCUMENTS_PATH="storage/documents/"
-DOCUMENTS_GLOB="*.pdf"
+DOCUMENTS_PATH = "storage/documents/"
+DOCUMENTS_GLOB = "*.pdf"

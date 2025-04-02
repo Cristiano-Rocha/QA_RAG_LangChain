@@ -7,8 +7,12 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     && rm -rf /var/lib/apt/lists/*
 
+# Install uv
+RUN pip install uv
+
 # Copy project files
 COPY pyproject.toml .
+COPY uv.lock .
 COPY config/ config/
 COPY loaders/ loaders/
 COPY llm/ llm/
@@ -19,12 +23,11 @@ COPY main.py .
 # Create necessary directories
 RUN mkdir -p storage/documents cache
 
-# Install Python dependencies
-RUN pip install --no-cache-dir -r <(pipenv requirements)
+RUN uv sync --frozen
 
 # Set environment variables
 ENV PYTHONPATH=/app
 ENV PYTHONUNBUFFERED=1
 
 # Command to run the application
-CMD ["python", "main.py"] 
+CMD ["python", "main.py"]

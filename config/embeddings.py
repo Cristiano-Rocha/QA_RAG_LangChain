@@ -9,6 +9,6 @@ def get_embeddings(model: str) -> GoogleGenerativeAIEmbeddings:
         embeddings = GoogleGenerativeAIEmbeddings(model=model)
         log.info("Embeddings carregado com sucesso")
         return embeddings
-    except Exception as e:
+    except Exception:
         log.error("Erro ao carregar o modelo de embeddings")
         raise Exception
