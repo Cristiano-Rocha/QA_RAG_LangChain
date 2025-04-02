@@ -16,6 +16,9 @@ def to_lower_case(docs: List[Document]) -> List[Document]:
         processed_docs.append(new_doc)
     return processed_docs
 
+def extract_sources(documents: List[Document]) -> List[str]:
+    log.info("Extraindo fontes...")
+    return [doc.metadata.get("source", "unknown") for doc in documents]
 
 def remove_extra_spaces_and_newlines(docs: List[Document]) -> List[Document]:
     log.info("Removendo linhas e espaços extras do documento...")
