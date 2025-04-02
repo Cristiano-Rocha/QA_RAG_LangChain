@@ -4,7 +4,7 @@ from core.vector_store import initialize_vector_store
 from loaders.pdf_loader import loader
 from core.rag_chain import create_rag_chain
 
-store = initialize_vector_store(loader, use_cache=False)
+store = initialize_vector_store(loader)
 
 def main():
     rag_chain = create_rag_chain(store)
